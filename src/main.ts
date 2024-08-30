@@ -13,13 +13,39 @@ import { bootstrapApplication } from '@angular/platform-browser';
 })
 export class App implements OnInit{
 ngOnInit(): void {
+  // concatMap
   range(1,5)
   .pipe(
     concatMap( i => of(i))
   )
+  .pipe(
+    delay(this.randomDelay())
+  )
+  .subscribe(v => console.log('concatMap', v));
+
+
+// mergeMap
+  range(1,5)
+  .pipe(
+  mergeMap( i => of(i))
+  )
+  .pipe(
+    delay(this.randomDelay())
+  )
+  .subscribe(v => console.log('mergeMap', v));
 }
-  name = 'Angular';
+
+// switchMap true
+range(21,5)
+.pipe(
+switchMap( i => of(i))
+)
+.pipe(
+  delay(this.randomDelay())
+)
+.subscribe(v => console.log('switchMap', v));
 }
+
 
 randomDelay(){
   return Math.floor(Math.random() * 1000) + 500;
